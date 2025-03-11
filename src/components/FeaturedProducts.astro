@@ -1,0 +1,74 @@
+---
+import ProductCard from '@/components/ProductCard';
+import { ArrowRight } from 'lucide-react';
+const featuredProducts = [
+  {
+    id: 1,
+    title: 'Messenger Bag',
+    description:
+      'Ideal para quienes buscan una solución práctica y segura para llevar sus pertenencias. Diseño moderno y características que se adaptan a cualquier ocasión.',
+    price: '$39.900',
+    imageSrc: '/src/assets/messenger-bag-2.webp',
+  },
+  {
+    id: 2,
+    title: 'Traveler Bag',
+    description:
+      'Elaborada con tela Oxford de alta densidad, es resistente al agua y al desgarro, garantizando durabilidad y seguridad en cada uso. Cremalleras metálicas de alta calidad.',
+    price: '$43.000',
+    imageSrc: '/src/assets/traveler-bag.webp',
+  },
+  {
+    id: 3,
+    title: 'Mochila Impermeable',
+    description:
+      'Materiales de alta calidad cubiertos con una membrana resistente al agua para la superficie.',
+    price: '$50.000',
+    imageSrc: '/src/assets/Mochila.webp',
+  },
+];
+---
+
+<section class="py-20">
+  <div class="mb-16 text-center">
+    <h2 class="text-3xl font-bold text-aeternum-highlight mb-4">
+      Productos destacados
+    </h2>
+    <p class="text-aeternum-accent/70 max-w-2xl mx-auto">
+      Nuestros productos más buscados, hechos para quienes buscan calidad y
+      elegancia
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {
+      featuredProducts.map((product, index) => (
+        <div
+          class="animate-scale-up"
+          style={{ animationDelay: `${index * 150}ms` }}
+        >
+          <ProductCard
+            title={product.title}
+            description={product.description}
+            price={product.price}
+            imageSrc={product.imageSrc}
+            featured
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="flex justify-center mt-16">
+    <a
+      href="/products"
+      class="group inline-flex items-center gap-2 text-aeternum-accent hover:text-aeternum-highlight transition-colors duration-300"
+    >
+      <span>View all products</span>
+      <ArrowRight
+        size={16}
+        class="transform transition-transform duration-300 group-hover:translate-x-1"
+      />
+    </a>
+  </div>
+</section>

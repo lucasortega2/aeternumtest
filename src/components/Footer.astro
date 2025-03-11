@@ -1,0 +1,51 @@
+---
+import { Instagram, Twitter, Facebook, Youtube } from 'lucide-react';
+import Logo from '@/components/Logo'; // Asegúrate de que Logo es un componente Astro
+import Whatsapp from '@/assets/Whatsapp.astro';
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  {
+    name: 'Instagram',
+    icon: Instagram,
+    url: 'https://www.instagram.com/_aeternum_store_/',
+  },
+
+  { name: 'Facebook', icon: Facebook, url: '#' },
+  { name: 'Whatsapp', icon: Whatsapp, url: 'https://wa.me/3417793907' },
+];
+---
+
+<footer class="bg-aeternum-medium py-12 border-t border-aeternum-accent/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="mb-8 md:mb-0">
+        <Logo />
+        <p class="mt-2 text-aeternum-accent/70 max-w-md">
+          Crafting eternal quality and timeless design for the discerning
+          individual.
+        </p>
+      </div>
+
+      <div class="flex flex-col items-center md:items-end">
+        <div class="flex space-x-6 mb-6">
+          {
+            socialLinks.map(({ name, icon: Icon, url }) => (
+              <a
+                href={url}
+                class="text-aeternum-accent/70 hover:text-aeternum-highlight transition-all duration-300 transform hover:scale-110"
+                aria-label={name}
+                target="_blank"
+              >
+                <Icon size="20" />
+              </a>
+            ))
+          }
+        </div>
+        <p class="text-aeternum-accent/50 text-sm">
+          © {currentYear} Aeternum. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

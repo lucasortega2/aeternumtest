@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-aeternum-dark: #111111;
+  --color-aeternum-medium: #1a1a1a;
+  --color-aeternum-light: #1f1f1f;
+  --color-aeternum-accent: #cccccc;
+  --color-aeternum-highlight: #d1d5db;
+  --color-aeternum-black: #0a0a0a;
+  --color-aeternum-silver: #d9d9d9;
+}
+
+.text-gradient {
+  @apply bg-gradient-to-b from-aeternum-highlight to-aeternum-accent bg-clip-text text-transparent;
+}
+
+.page-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12;
+}
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

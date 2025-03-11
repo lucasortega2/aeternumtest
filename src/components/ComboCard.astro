@@ -1,0 +1,102 @@
+---
+import { ArrowRight, Package, Star, Sparkles } from 'lucide-react';
+const { combo } = Astro.props;
+---
+
+<div
+  class={`group rounded-xl overflow-hidden border border-aeternum-silver/10 bg-aeternum-silver ${
+    combo.featured ? 'lg:col-span-2 relative' : ''
+  } bg-gradient-to-br from-aeternum-dark to-aeternum-black/70 transition-all duration-300 hover:shadow-lg hover:shadow-aeternum-silver/20 hover:border-aeternum-silver/30 hover:scale-[1.01]`}
+>
+  {
+    combo.featured && (
+      <div class="absolute top-4 right-4 z-10">
+        <span class="inline-flex items-center px-3 py-1 rounded-full bg-aeternum-silver/90 text-aeternum-black text-xs font-medium animate-pulse">
+          <Star size={12} className="mr-1 animate-spin-slow" />
+          Destacado
+        </span>
+      </div>
+    )
+  }
+
+  <div class={`grid ${combo.featured ? 'md:grid-cols-2' : 'grid-cols-1'}`}>
+    <div class="aspect-square overflow-hidden relative">
+      <img
+        src={combo.image}
+        alt={combo.title}
+        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-aeternum-black/70 to-transparent"
+      >
+      </div>
+    </div>
+
+    <div class="p-6 flex flex-col">
+      <h3 class="text-2xl font-bold mb-2 text-aeternum-silver">
+        {combo.title}
+      </h3>
+      <p class="text-aeternum-silver/80 mb-4">{combo.description}</p>
+
+      <div class="mb-6">
+        <h4
+          class="text-sm font-medium text-aeternum-silver mb-2 flex items-center"
+        >
+          <Package size={16} className="mr-2" />
+          Incluye:
+        </h4>
+        <ul class="space-y-2">
+          {
+            combo.items.map((item) => (
+              <li class="text-sm text-aeternum-silver/70 flex items-start">
+                <span class="mr-2 text-aeternum-silver">•</span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="mt-auto">
+        <div class="flex items-center mb-4">
+          <span class="text-2xl font-bold text-aeternum-silver">
+            {combo.price}
+          </span>
+          <span class="text-sm text-aeternum-silver/60 line-through ml-2">
+            {combo.regularPrice}
+          </span>
+          <span
+            class="ml-2 bg-aeternum-silver/20 text-aeternum-silver text-xs px-2 py-1 rounded"
+          >
+            Ahorro especial
+          </span>
+        </div>
+
+        <button
+          class="w-full flex items-center justify-center bg-aeternum-silver text-aeternum-black font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:bg-transparent hover:text-aeternum-silver border border-transparent hover:border-aeternum-silver group"
+        >
+          <span>Obtener combo</span>
+          <ArrowRight
+            size={16}
+            className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 3s linear infinite;
+  }
+</style>

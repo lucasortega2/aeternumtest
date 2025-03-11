@@ -1,22 +1,39 @@
+---
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer.astro';
+import '@/styles/global.css';
+const { pathname } = Astro.url;
+import { ClientRouter } from 'astro:transitions';
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <div class="min-h-screen flex flex-col bg-aeternum-dark">
+      <Navbar client:load url={pathname} />
+      <main class="flex-grow">
+        <div class="page-container animate-fade-in">
+          <slot />
+        </div>
+      </main>
+      <Footer />
+    </div>
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>

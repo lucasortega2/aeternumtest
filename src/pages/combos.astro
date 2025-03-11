@@ -1,0 +1,104 @@
+---
+import ComboCard from '@/components/ComboCard.astro';
+import Layout from '@/layouts/Layout.astro';
+import DiscountCombo from '@/components/DiscountCombo';
+const combosData = [
+  {
+    id: 1,
+    title: 'Combo Ejecutivo',
+    description:
+      'Todo lo que necesitas para destacar en el entorno profesional.',
+    price: '$499.99',
+    regularPrice: '$649.99',
+    items: [
+      'Reloj Clásico',
+      'Billetera Ejecutiva',
+      'Bolígrafo Premium',
+      'Mochila Ejecutiva',
+    ],
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1495707902641-75cac588d2e9',
+  },
+  {
+    id: 2,
+    title: 'Combo Tech',
+    description:
+      'Experimenta la tecnología premium con nuestros mejores dispositivos.',
+    price: '$699.99',
+    regularPrice: '$899.99',
+    items: [
+      'Auriculares Pro',
+      'Smartwatch Aeternum',
+      'Cargador Inalámbrico',
+      'Funda Protectora',
+    ],
+    featured: false,
+    image: 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147',
+  },
+  {
+    id: 3,
+    title: 'Combo Lifestyle',
+    description: 'Eleva tu estilo de vida con nuestra selección premium.',
+    price: '$399.99',
+    regularPrice: '$529.99',
+    items: [
+      'Gafas de Sol',
+      'Botella Térmica',
+      'Set de Cuidado Personal',
+      'Billetera Compacta',
+    ],
+    featured: false,
+    image: 'https://images.unsplash.com/photo-1542744095-291d1f67b221',
+  },
+  {
+    id: 4,
+    title: 'Combo Ultimate',
+    description:
+      'La experiencia definitiva de Aeternum con nuestros productos más exclusivos.',
+    price: '$999.99',
+    regularPrice: '$1299.99',
+    items: [
+      'Reloj Clásico Edición Limitada',
+      'Auriculares Pro Max',
+      'Set de Viaje Completo',
+      'Billetera Ejecutiva Premium',
+      'Bolígrafo Edición Oro',
+    ],
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1539874754764-5a96559165b0',
+  },
+];
+---
+
+<Layout>
+  {/* Header */}
+  <section class="pt-32 pb-16 px-4">
+    <div class="container mx-auto">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">
+          Combos Exclusivos
+        </h1>
+        <p class="text-aeternum-silver text-lg mb-12">
+          Descubre nuestras combinaciones especiales de productos Aeternum a
+          precios excepcionales. Diseñados para maximizar tu experiencia con
+          nuestra marca.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* Promoción Especial */}
+  <section class="pb-20 px-4">
+    <div class="container mx-auto">
+      <DiscountCombo client:load />
+      {/* Combos Grid */}
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {
+          combosData.map((combo, index) => (
+            <ComboCard key={combo.id} combo={combo} index={index} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>
