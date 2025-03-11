@@ -7,85 +7,43 @@ const Products: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const categories = [
-    { id: 'all', name: 'All Products' },
-    { id: 'timepieces', name: 'Timepieces' },
-    { id: 'audio', name: 'Audio' },
-    { id: 'lighting', name: 'Lighting' },
-    { id: 'accessories', name: 'Accessories' },
+    { id: 'all', name: 'Todos' },
+    { id: 'morrales', name: 'Morrales' },
+    { id: 'mochilas', name: 'Mochilas' },
   ];
 
   const allProducts = [
     {
       id: 1,
-      title: 'Aeternum Chrono',
-      description: 'Precision timepiece with metallic finish',
-      price: '$2,999',
-      category: 'timepieces',
-      imageSrc:
-        'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+      title: 'Messenger Bag',
+      description:
+        'Ideal para quienes buscan una solución práctica y segura para llevar sus pertenencias. Diseño moderno y características que se adaptan a cualquier ocasión.',
+      characteristics: [
+        'Resistente al agua',
+        'Materiales premium',
+        'Diseño versátil',
+      ],
+      price: '$39.900',
+      imageSrc: '/MessengerBagAll.webp',
+      category: 'morrales',
     },
     {
       id: 2,
-      title: 'Aeternum Sonus',
-      description: 'Premium sound system with eternal clarity',
-      price: '$1,899',
-      category: 'audio',
-      imageSrc:
-        'https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+      title: 'Traveler Bag',
+      description:
+        'Tela Oxford de alta densidad, es resistente al agua y al desgarro, garantizando durabilidad y seguridad en cada uso. Cremalleras metálicas de alta calidad.',
+      price: '$43.000',
+      imageSrc: '/traveler-bag.webp',
+      category: 'morrales',
     },
     {
       id: 3,
-      title: 'Aeternum Lumen',
-      description: 'Everlasting illumination for your space',
-      price: '$899',
-      category: 'lighting',
-      imageSrc:
-        'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
-    },
-    {
-      id: 4,
-      title: 'Aeternum Tempus',
-      description: 'Classic timepiece with modern functionality',
-      price: '$1,899',
-      category: 'timepieces',
-      imageSrc:
-        'https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
-    },
-    {
-      id: 5,
-      title: 'Aeternum Harmonix',
-      description: 'Wireless audio with exceptional clarity',
-      price: '$799',
-      category: 'audio',
-      imageSrc:
-        'https://images.unsplash.com/photo-1558756520-22cfe5d382ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
-    },
-    {
-      id: 6,
-      title: 'Aeternum Pendant',
-      description: 'Sleek lighting fixture for any space',
-      price: '$599',
-      category: 'lighting',
-      imageSrc:
-        'https://images.unsplash.com/photo-1540932239986-30128078f3c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
-    },
-    {
-      id: 7,
-      title: 'Aeternum Clavis',
-      description: 'Precision crafted keychain accessory',
-      price: '$199',
-      category: 'accessories',
-      imageSrc:
-        'https://images.unsplash.com/photo-1611105637889-3afd7295bdbf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
-    },
-    {
-      id: 8,
-      title: 'Aeternum Carta',
-      description: 'Slim wallet with timeless design',
-      price: '$249',
-      category: 'accessories',
-      imageSrc:
-        'https://images.unsplash.com/photo-1627123409790-1a99914ad273?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+      title: 'Mochila Impermeable',
+      description:
+        'Materiales de alta calidad cubiertos con una membrana resistente al agua para la superficie. Ideal para llevarlas cuando necesitas llevar muchas cosas.',
+      price: '$50.000',
+      imageSrc: '/Mochila.webp',
+      category: 'mochilas',
     },
   ];
 
