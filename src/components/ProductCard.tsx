@@ -37,14 +37,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <p className="text-sm text-aeternum-accent/70 mb-4">{description}</p>
         <div className="flex justify-between items-center">
           <span className="text-aeternum-highlight font-medium">{price}</span>
-          <button className="text-xs uppercase tracking-wider text-aeternum-accent hover:text-aeternum-highlight transition-colors duration-300 flex items-center gap-1 py-1 px-2 rounded-full border border-aeternum-accent/20 hover:border-aeternum-accent/50">
-            Add to cart
+          <button className="text-xs uppercase tracking-wider text-aeternum-accent hover:text-aeternum-highlight transition-colors duration-300 flex items-center gap-1 py-1 px-2 rounded-full border border-aeternum-accent/20 hover:border-aeternum-accent/50 hover:cursor-pointer">
+            Agregar al carrito
           </button>
         </div>
       </div>
 
       <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
-        <div className="absolute inset-0 bg-gradient-to-t from-aeternum-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"></div>
+        <div
+          className="absolute inset-0 transition-all duration-500 ease-out"
+          style={{
+            background:
+              'radial-gradient(circle at bottom, rgba(138,43,226,0.6), transparent 40%)',
+          }}
+        ></div>
       </div>
     </div>
   );

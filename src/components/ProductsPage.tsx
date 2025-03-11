@@ -120,7 +120,7 @@ const Products: React.FC = () => {
       // Trigger fade-in animation after loading
       setTimeout(() => {
         setShowProducts(true);
-      }, 100);
+      }, 200);
     }, 300);
   }, [selectedCategory, searchTerm]);
 

@@ -34,8 +34,8 @@ const Navbar: React.FC<NavbarProps> = ({ url }) => {
   }, [url]);
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Products', path: '/products' },
+    { name: 'Inicio', path: '/' },
+    { name: 'Productos', path: '/products' },
     { name: 'Combos', path: '/combos' },
   ];
 
