@@ -1,18 +1,11 @@
+import type { Product } from '@/types/types';
 import React from 'react';
-
-interface ProductCardProps {
-  title: string;
-  description: string;
-  price: string;
-  imageSrc: string;
-  featured?: boolean;
-}
-
-const ProductCard: React.FC<ProductCardProps> = ({
-  title,
+type ProductCard = Omit<Product, 'id' | 'is_active' | 'category'>;
+const ProductCard: React.FC<ProductCard> = ({
+  name,
   description,
   price,
-  imageSrc,
+  url,
   featured = false,
 }) => {
   return (
@@ -23,8 +16,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
     >
       <div className="aspect-square overflow-hidden bg-aeternum-light">
         <img
-          src={imageSrc}
-          alt={title}
+          src={url}
+          alt={name}
           className="h-full w-full object-cover object-center transition-all duration-500 ease-out group-hover:scale-105"
           loading="lazy"
         />
@@ -32,11 +25,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       <div className="p-6">
         <h3 className="text-lg font-medium text-aeternum-highlight mb-2">
-          {title}
+          {name}
         </h3>
         <p className="text-sm text-aeternum-accent/70 mb-4">{description}</p>
         <div className="flex justify-between items-center">
-          <span className="text-aeternum-highlight font-medium">{price}</span>
+          <span className="text-aeternum-highlight font-medium">
+            ${new Intl.NumberFormat('es-AR').format(Number(price))}
+          </span>
           <button className="text-xs uppercase tracking-wider text-aeternum-accent hover:text-aeternum-highlight transition-colors duration-300 flex items-center gap-1 py-1 px-2 rounded-full border border-aeternum-accent/20 hover:border-aeternum-accent/50 hover:cursor-pointer">
             Agregar al carrito
           </button>

@@ -2,36 +2,21 @@
 import ProductCard from '@/components/ProductCard';
 import { ArrowRight } from 'lucide-react';
 import FeaturedProduct from '@/components/FeaturedProduct.tsx';
-const featuredProduct = {
-  title: 'Messenger Bag',
-  description:
-    'Ideal para quienes buscan una solución práctica y segura para llevar sus pertenencias. Diseño moderno y características que se adaptan a cualquier ocasión.',
-  characteristics: [
-    'Resistente al agua',
-    'Materiales premium',
-    'Diseño versátil',
-  ],
-  price: '$39.900',
-  media: '/Messenger-bag.mp4',
-};
-const featuredProducts = [
-  {
-    id: 1,
-    title: 'Traveler Bag',
-    description:
-      'Tela Oxford de alta densidad, es resistente al agua y al desgarro, garantizando durabilidad y seguridad en cada uso. Cremalleras metálicas de alta calidad.',
-    price: '$43.000',
-    imageSrc: '/traveler-bag.webp',
-  },
-  {
-    id: 2,
-    title: 'Mochila Impermeable',
-    description:
-      'Materiales de alta calidad cubiertos con una membrana resistente al agua para la superficie. Ideal para llevarlas cuando necesitas llevar muchas cosas.',
-    price: '$50.000',
-    imageSrc: '/Mochila.webp',
-  },
-];
+import { supabase } from '@/lib/supabase';
+import type { Product } from '@/types/types';
+const { data: products, error } = (await supabase
+  .from('products')
+  .select('*')
+  .eq('featured', true)) as { data: Product[] | null; error: any };
+
+const FeaturedProductMainName = 'Messenger Bag';
+
+const featuredProductMain = products?.find(
+  (product) => product.name === FeaturedProductMainName,
+);
+const featuredProducts = products?.filter(
+  (product) => product.name !== FeaturedProductMainName,
+);
 ---
 
 <section class="py-20">
@@ -45,25 +30,29 @@ const featuredProducts = [
     </p>
   </div>
   <div>
-    <FeaturedProduct client:visible product={featuredProduct} />
+    {
+      featuredProductMain && (
+        <FeaturedProduct client:visible product={featuredProductMain} />
+      )
+    }
   </div>
-  <h2 class="text-3xl font-bold text-aeternum-highlight mb-4 text-center">
+  <h2 class="text-3xl font-bold text-aeternum-highlight mb-12 text-center">
     Otros productos destacados
   </h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {
-      featuredProducts.map((product, index) => (
+      featuredProducts?.map((product, index) => (
         <div
           class="animate-scale-up"
           style={{ animationDelay: `${index * 150}ms` }}
         >
           <ProductCard
-            title={product.title}
+            name={product.name}
             description={product.description}
             price={product.price}
-            imageSrc={product.imageSrc}
-            featured
+            url={product.url}
+            featured={product.featured}
           />
         </div>
       ))

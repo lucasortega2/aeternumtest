@@ -1,55 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
 import ProductCard from './ProductCard';
+import type { Category, Product } from '@/types/types';
+interface Products {
+  products: Product[];
+  categories: Category[];
+}
 
-const Products: React.FC = () => {
+const Products: React.FC<Products> = ({ products, categories }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
-
-  const categories = [
-    { id: 'all', name: 'Todos' },
-    { id: 'morrales', name: 'Morrales' },
-    { id: 'mochilas', name: 'Mochilas' },
-  ];
-
-  const allProducts = [
-    {
-      id: 1,
-      title: 'Messenger Bag',
-      description:
-        'Ideal para quienes buscan una solución práctica y segura para llevar sus pertenencias. Diseño moderno y características que se adaptan a cualquier ocasión.',
-      characteristics: [
-        'Resistente al agua',
-        'Materiales premium',
-        'Diseño versátil',
-      ],
-      price: '$39.900',
-      imageSrc: '/MessengerBagAll.webp',
-      category: 'morrales',
-    },
-    {
-      id: 2,
-      title: 'Traveler Bag',
-      description:
-        'Tela Oxford de alta densidad, es resistente al agua y al desgarro, garantizando durabilidad y seguridad en cada uso. Cremalleras metálicas de alta calidad.',
-      price: '$43.000',
-      imageSrc: '/traveler-bag.webp',
-      category: 'morrales',
-    },
-    {
-      id: 3,
-      title: 'Mochila Impermeable',
-      description:
-        'Materiales de alta calidad cubiertos con una membrana resistente al agua para la superficie. Ideal para llevarlas cuando necesitas llevar muchas cosas.',
-      price: '$50.000',
-      imageSrc: '/Mochila.webp',
-      category: 'mochilas',
-    },
-  ];
-
-  const [filteredProducts, setFilteredProducts] = useState(allProducts);
+  const [filteredProducts, setFilteredProducts] = useState(products);
   const [isLoading, setIsLoading] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
+  const allCategories = [{ id: 'all', name: 'Todos' }, ...categories];
 
   useEffect(() => {
     // Apply both category and search filters
@@ -58,15 +22,16 @@ const Products: React.FC = () => {
 
     // Simulate loading delay to make the fade-in effect more noticeable
     setTimeout(() => {
-      const filtered = allProducts.filter((product) => {
+      const filtered = products.filter((product) => {
         // Apply category filter
         const categoryMatch =
-          selectedCategory === 'all' || product.category === selectedCategory;
+          selectedCategory === 'all' ||
+          product.category_id === selectedCategory;
 
         // Apply search filter (case insensitive)
         const searchMatch =
           searchTerm === '' ||
-          product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           product.description.toLowerCase().includes(searchTerm.toLowerCase());
 
         return categoryMatch && searchMatch;
@@ -99,7 +64,7 @@ const Products: React.FC = () => {
           {/* Category Filter */}
           <div className="overflow-x-auto scrollbar-hidden w-full md:w-auto">
             <div className="flex space-x-2 min-w-max py-2">
-              {categories.map((category) => (
+              {allCategories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
@@ -152,10 +117,10 @@ const Products: React.FC = () => {
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <ProductCard
-                  title={product.title}
+                  name={product.name}
                   description={product.description}
                   price={product.price}
-                  imageSrc={product.imageSrc}
+                  url={product.url[0]}
                   featured
                 />
               </div>

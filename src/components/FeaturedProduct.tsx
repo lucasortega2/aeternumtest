@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import type { Product } from '@/types/types';
 
 // Componente para el título con un efecto de animación mejorado
-const AnimatedTitle = ({ title = 'Messenger Bag' }) => {
-  const letters = title.split('');
+const AnimatedTitle = ({ name }: { name: string }) => {
+  const letters = name.split('');
   const [activeLetters, setActiveLetters] = useState(
     Array(letters.length).fill(false),
   );
@@ -132,7 +133,7 @@ const AnimatedTitle = ({ title = 'Messenger Bag' }) => {
         />
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes shimmer {
           0% {
             transform: skewX(-45deg) translateX(-150%);
@@ -147,15 +148,7 @@ const AnimatedTitle = ({ title = 'Messenger Bag' }) => {
 };
 
 // Componente principal para la sección destacada
-const FeaturedMessengerBag = ({
-  product = {
-    title: 'Messenger Bag',
-    description:
-      'Diseñada para el profesional moderno, nuestra Messenger Bag combina funcionalidad y elegancia. Fabricada con cuero genuino y acabados premium.',
-    price: '$149.99',
-    media: '/Video-Messenger-bag.mp4',
-  },
-}) => {
+const FeaturedMessengerBag = ({ product }: { product: Product }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -182,7 +175,7 @@ const FeaturedMessengerBag = ({
               className="space-y-6"
             >
               {/* Animated title component */}
-              <AnimatedTitle title={product.title} />
+              <AnimatedTitle name={product.name} />
 
               <p className="text-xl text-aeternum-accent/90">
                 {product.description}
@@ -224,7 +217,8 @@ const FeaturedMessengerBag = ({
               </div>
               <div className="pt-6">
                 <p className="text-3xl font-bold text-aeternum-highlight mb-4">
-                  {product.price}
+                  $
+                  {new Intl.NumberFormat('es-AR').format(Number(product.price))}
                 </p>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -242,7 +236,7 @@ const FeaturedMessengerBag = ({
               className="relative rounded-3xl w-full h-96"
             >
               <video
-                src={product.media}
+                src="/MessengerBag/messenger-bag-video.mp4"
                 loop
                 muted
                 autoPlay

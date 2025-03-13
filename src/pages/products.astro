@@ -1,8 +1,17 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import ProductsPage from '@/components/ProductsPage';
+import { supabase } from '@/lib/supabase';
+import type { Product, Category } from '@/types/types';
+const { data: products, error } = (await supabase
+  .from('products')
+  .select('*')) as { data: Product[]; error: any };
+const { data: categories, error: errorCategory } = (await supabase
+  .from('category')
+  .select('*')) as { data: Category[]; error: any };
+export const prerender = false;
 ---
 
 <Layout>
-  <ProductsPage client:load />
+  <ProductsPage client:load products={products} categories={categories} />
 </Layout>
