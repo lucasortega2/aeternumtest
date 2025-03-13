@@ -9,7 +9,6 @@ const { data: products, error } = (await supabase
 const { data: categories, error: errorCategory } = (await supabase
   .from('category')
   .select('*')) as { data: Category[]; error: any };
-export const prerender = false;
 ---
 
 <Layout>
