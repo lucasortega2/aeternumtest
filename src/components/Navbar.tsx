@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Logo from '@/components/Logo';
 import { Menu, X } from 'lucide-react';
-
+import Cart from '@/components/CartDrawer';
 interface NavbarProps {
   url: string;
 }
@@ -31,12 +31,11 @@ const Navbar: React.FC<NavbarProps> = ({ url }) => {
 
   useEffect(() => {
     setIsMenuOpen(false);
-  }, [url]);
+  }, []);
 
   const navLinks = [
     { name: 'Inicio', path: '/' },
     { name: 'Productos', path: '/products' },
-    // { name: 'Combos', path: '/combos' },
   ];
 
   return (
@@ -54,35 +53,43 @@ const Navbar: React.FC<NavbarProps> = ({ url }) => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.path}
-                className={`text-aeternum-accent hover:text-aeternum-highlight transition-all duration-300 ${
-                  url === link.path ? 'text-aeternum-highlight' : ''
-                }`}
-              >
-                <span className="relative group">
-                  {link.name}
-                  <span
-                    className={`absolute -bottom-1 left-0 w-0 h-[1px] bg-aeternum-highlight transition-all duration-300 group-hover:w-full ${
-                      url === link.path ? 'w-full' : ''
-                    }`}
-                  ></span>
-                </span>
-              </a>
-            ))}
-          </nav>
+          <div className="hidden md:flex items-center space-x-8">
+            <nav className="flex space-x-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.path}
+                  className={`text-aeternum-accent hover:text-aeternum-highlight transition-all duration-300 ${
+                    url === link.path ? 'text-aeternum-highlight' : ''
+                  }`}
+                >
+                  <span className="relative group">
+                    {link.name}
+                    <span
+                      className={`absolute -bottom-1 left-0 w-0 h-[1px] bg-aeternum-highlight transition-all duration-300 group-hover:w-full ${
+                        url === link.path ? 'w-full' : ''
+                      }`}
+                    ></span>
+                  </span>
+                </a>
+              ))}
+            </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-aeternum-accent hover:text-aeternum-highlight transition-colors duration-300"
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            {/* Shopping Cart */}
+            <Cart />
+          </div>
+
+          {/* Mobile Menu and Cart */}
+          <div className="md:hidden flex items-center space-x-4">
+            <Cart />
+            <button
+              className="text-aeternum-accent hover:text-aeternum-highlight transition-colors duration-300"
+              onClick={toggleMenu}
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 

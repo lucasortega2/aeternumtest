@@ -48,11 +48,14 @@ const featuredProducts = products?.filter(
           style={{ animationDelay: `${index * 150}ms` }}
         >
           <ProductCard
+            client:visible
+            id={product.id}
             name={product.name}
             description={product.description}
             price={product.price}
             url={product.url}
             featured={product.featured}
+            category_id={product.category_id}
           />
         </div>
       ))

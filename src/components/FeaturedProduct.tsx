@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { Product } from '@/types/types';
+import { useCartStore } from '@/stores/cartStore';
 
 // Componente para el título con un efecto de animación mejorado
 const AnimatedTitle = ({ name }: { name: string }) => {
@@ -149,6 +150,7 @@ const AnimatedTitle = ({ name }: { name: string }) => {
 
 // Componente principal para la sección destacada
 const FeaturedMessengerBag = ({ product }: { product: Product }) => {
+  const { addItem } = useCartStore();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -221,6 +223,15 @@ const FeaturedMessengerBag = ({ product }: { product: Product }) => {
                   {new Intl.NumberFormat('es-AR').format(Number(product.price))}
                 </p>
                 <motion.button
+                  onClick={() =>
+                    addItem({
+                      id: product.id,
+                      price: product.price,
+                      name: product.name,
+                      url: product.url[0],
+                      quantity: 1,
+                    })
+                  }
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="bg-aeternum-accent/20 text-aeternum-highlight px-8 py-3 rounded-lg hover:bg-aeternum-accent/30 transition-colors duration-300 hover:cursor-pointer"

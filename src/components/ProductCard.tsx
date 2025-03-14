@@ -1,13 +1,17 @@
+import { useCartStore } from '@/stores/cartStore';
 import type { Product } from '@/types/types';
 import React from 'react';
-type ProductCard = Omit<Product, 'id' | 'is_active' | 'category'>;
+type ProductCard = Omit<Product, 'is_active' | 'category'>;
 const ProductCard: React.FC<ProductCard> = ({
+  id,
   name,
   description,
   price,
   url,
   featured = false,
 }) => {
+  const addItem = useCartStore((state) => state.addItem);
+
   return (
     <div
       className={`group relative overflow-hidden rounded-lg bg-aeternum-medium border border-aeternum-accent/10 transition-all duration-500 ease-out hover:border-aeternum-accent/30 ${
@@ -32,7 +36,10 @@ const ProductCard: React.FC<ProductCard> = ({
           <span className="text-aeternum-highlight font-medium">
             ${new Intl.NumberFormat('es-AR').format(Number(price))}
           </span>
-          <button className="text-xs uppercase tracking-wider text-aeternum-accent hover:text-aeternum-highlight transition-colors duration-300 flex items-center gap-1 py-1 px-2 rounded-full border border-aeternum-accent/20 hover:border-aeternum-accent/50 hover:cursor-pointer">
+          <button
+            onClick={() => addItem({ id, price, name, url, quantity: 1 })}
+            className="text-xs uppercase tracking-wider text-aeternum-accent hover:text-aeternum-highlight transition-colors duration-300 flex items-center gap-1 py-1 px-2 rounded-full border border-aeternum-accent/20 hover:border-aeternum-accent/50 hover:cursor-pointer"
+          >
             Agregar al carrito
           </button>
         </div>

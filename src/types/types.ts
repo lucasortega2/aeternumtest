@@ -13,3 +13,15 @@ export type Category = {
   id: string;
   name: string;
 };
+
+export interface CartItem
+  extends Omit<
+    Product,
+    | 'is_active'
+    | 'category_id'
+    | 'shortDescription'
+    | 'description'
+    | 'featured'
+  > {
+  quantity: number;
+}

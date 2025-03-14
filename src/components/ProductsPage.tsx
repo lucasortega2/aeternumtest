@@ -51,7 +51,7 @@ const Products: React.FC<Products> = ({ products, categories }) => {
     <div className="pt-28 pb-20">
       <div className="text-center mb-16 animate-fade-in">
         <h1 className="text-4xl font-bold text-gradient mb-4">
-          Our Collection
+          Nuestra colleción
         </h1>
         <p className="text-aeternum-accent/70 max-w-2xl mx-auto">
           Discover products that stand the test of time, meticulously crafted
@@ -117,10 +117,12 @@ const Products: React.FC<Products> = ({ products, categories }) => {
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <ProductCard
+                  id={product.id}
                   name={product.name}
                   description={product.description}
                   price={product.price}
                   url={product.url[0]}
+                  category_id={product.category_id}
                   featured
                 />
               </div>
