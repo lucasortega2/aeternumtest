@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Search } from 'lucide-react';
 import ProductCard from './ProductCard';
 import type { Category, Product } from '@/types/types';
@@ -14,38 +14,41 @@ const Products: React.FC<Products> = ({ products, categories }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
   const allCategories = [{ id: 'all', name: 'Todos' }, ...categories];
+  const isInitialRender = useRef(true);
 
   useEffect(() => {
     // Apply both category and search filters
     setIsLoading(true);
-    setShowProducts(false);
+    // Only hide products during initial load
+    if (isInitialRender.current) {
+      setShowProducts(false);
+    }
 
-    // Simulate loading delay to make the fade-in effect more noticeable
-    setTimeout(() => {
-      const filtered = products.filter((product) => {
-        // Apply category filter
-        const categoryMatch =
-          selectedCategory === 'all' ||
-          product.category_id === selectedCategory;
+    // Simulate loading delay
 
-        // Apply search filter (case insensitive)
-        const searchMatch =
-          searchTerm === '' ||
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const filtered = products.filter((product) => {
+      // Apply category filter
+      const categoryMatch =
+        selectedCategory === 'all' || product.category_id === selectedCategory;
 
-        return categoryMatch && searchMatch;
-      });
+      // Apply search filter (case insensitive)
+      const searchMatch =
+        searchTerm === '' ||
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase());
 
-      setFilteredProducts(filtered);
-      setIsLoading(false);
+      return categoryMatch && searchMatch;
+    });
 
-      // Trigger fade-in animation after loading
-      setTimeout(() => {
-        setShowProducts(true);
-      }, 200);
-    }, 300);
-  }, [selectedCategory, searchTerm]);
+    setFilteredProducts(filtered);
+    setIsLoading(false);
+
+    // Only trigger fade-in animation on initial render
+    if (isInitialRender.current) {
+      setShowProducts(true);
+      isInitialRender.current = false; // Mark initial render as complete
+    }
+  }, [selectedCategory, searchTerm, products]);
 
   return (
     <div className="pt-28 pb-20">
@@ -54,8 +57,8 @@ const Products: React.FC<Products> = ({ products, categories }) => {
           Nuestra colleción
         </h1>
         <p className="text-aeternum-accent/70 max-w-2xl mx-auto">
-          Discover products that stand the test of time, meticulously crafted
-          for the discerning individual.
+          Descubre nuestros productos, creados para quienes valoran la
+          durabilidad y el buen diseño.
         </p>
       </div>
       {/* Category Filter and Search */}
@@ -84,7 +87,7 @@ const Products: React.FC<Products> = ({ products, categories }) => {
           <div className="relative w-full md:w-64">
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder="Busca tus productos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-aeternum-medium border border-aeternum-accent/20 rounded-full py-2 pl-10 pr-4 text-aeternum-highlight placeholder:text-aeternum-accent/40 focus:outline-none focus:border-aeternum-accent/50 transition-colors"
@@ -114,7 +117,9 @@ const Products: React.FC<Products> = ({ products, categories }) => {
                     ? 'opacity-100 transform translate-y-0'
                     : 'opacity-0 transform translate-y-8'
                 }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                style={{
+                  transitionDelay: showProducts ? `${index * 200}ms` : `0ms`,
+                }}
               >
                 <ProductCard
                   id={product.id}

@@ -30,11 +30,13 @@ export const useCartStore = create<CartState>()(
               ? { ...item, quantity: item.quantity + 1 }
               : item,
           );
-          set((state) => ({
-            items: updatedItems,
-            totalItems: state.totalItems + 1,
-            totalPrice: state.totalPrice + Number(product.price),
-          }));
+          set((state) => {
+            return {
+              items: updatedItems,
+              totalItems: state.totalItems + 1,
+              totalPrice: state.totalPrice + Number(product.price),
+            };
+          });
         } else {
           // Añadir nuevo producto
           set((state) => ({
