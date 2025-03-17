@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, type JSX } from 'react';
 import { ShoppingBag, X } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import CartItem from './CartItem';
@@ -58,7 +58,7 @@ export default function CartDrawer(): JSX.Element {
       {/* Cart toggle button */}
       <button
         onClick={toggleCart}
-        className="relative flex items-center text-aeternum-silver/30 hover:text-aeternum-highlight transition-all duration-300"
+        className="relative flex items-center text-aeternum-accent hover:text-aeternum-highlight transition-all duration-300 cursor-pointer"
         aria-label="Abrir carrito"
         type="button"
       >
@@ -80,14 +80,16 @@ export default function CartDrawer(): JSX.Element {
       <div
         ref={cartRef}
         className={`
-          fixed top-0 -right-4 h-screen w-full max-w-md bg-aeternum-medium border-l border-gray-800 shadow-xl z-[100] transition-transform duration-300 ease-in-out flex flex-col overflow-hidden
+          fixed top-0 -right-4 h h-dvh w-full max-w-md bg-aeternum-medium border-l border-gray-800 shadow-xl z-[100] transition-transform duration-300 ease-in-out flex flex-col overflow-hidden
           ${isOpen ? ':translate-x-0 md:-translate-x-4' : 'translate-x-full'}`}
       >
         {/* Cart header */}
         <div className="flex items-center justify-between p-5 border-b border-gray-800">
           <div className="flex items-center gap-2">
-            <ShoppingBag size={20} className="text-white" />
-            <h2 className="text-lg font-medium text-white">Tu carrito</h2>
+            <ShoppingBag size={20} className="text-aeternum-accent" />
+            <h2 className="text-lg font-medium text-aeternum-accent">
+              Tu carrito
+            </h2>
             {totalItems > 0 && (
               <span className="ml-2 bg-gray-700 text-white text-xs px-2 py-0.5 rounded-full">
                 {totalItems} {totalItems === 1 ? 'item' : 'items'}
@@ -135,10 +137,6 @@ export default function CartDrawer(): JSX.Element {
                 ${totalPrice.toFixed(2)}
               </span>
             </div>
-
-            <p className="text-xs text-gray-400 mb-4">
-              Impuestos y envío calculados en checkout
-            </p>
 
             <div className="space-y-3">
               <a

@@ -58,7 +58,8 @@ export const useCartStore = create<CartState>()(
           items: updatedItems,
           totalItems: state.totalItems - itemToRemove.quantity,
           totalPrice:
-            state.totalPrice - itemToRemove.price * itemToRemove.quantity,
+            state.totalPrice -
+            Number(itemToRemove.price) * itemToRemove.quantity,
         }));
       },
 
@@ -76,7 +77,7 @@ export const useCartStore = create<CartState>()(
         set((state) => ({
           items: updatedItems,
           totalItems: state.totalItems + quantityDiff,
-          totalPrice: state.totalPrice + item.price * quantityDiff,
+          totalPrice: state.totalPrice + Number(item.price) * quantityDiff,
         }));
       },
 

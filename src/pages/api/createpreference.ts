@@ -1,35 +1,40 @@
 import type { APIRoute } from 'astro';
 
 import { MercadoPagoConfig, Preference } from 'mercadopago';
-// Agrega credenciales
 
-export const GET: APIRoute = async ({ params, request }) => {
-  console.log(params);
-  console.log(request);
+export const prerender = false;
 
-  const client = new MercadoPagoConfig({
-    accessToken: import.meta.env.ACCESS_TOKEN_MP,
-  });
-
+export const POST: APIRoute = async ({ request }) => {
   try {
+    const { items } = await request.json();
+
+    const client = new MercadoPagoConfig({
+      accessToken: import.meta.env.PUBLIC_MP_ACCESS_TOKEN,
+    });
+
+    const body = {
+      items,
+      back_urls: {
+        success: 'https://aeternum-tau.vercel.app/checkout/success',
+        failure: 'https://aeternum-tau.vercel.app/checkout/failure',
+        pending: 'https://aeternum-tau.vercel.app/checkout/pending',
+      },
+      auto_return: 'approved',
+    };
     const preference = new Preference(client);
 
-    const result = await preference.create({
-      body: {
-        items: [
-          {
-            id: 'hola',
-            title: 'Mi producto',
-            quantity: 1,
-            unit_price: 2000,
-            currency_id: 'ARS',
-          },
-        ],
-      },
+    const result = await preference.create({ body });
+    return new Response(JSON.stringify({ id: result.id }), {
+      status: 200,
     });
-    console.log(result);
   } catch (error) {
     console.log(error);
+
+    return new Response(
+      JSON.stringify({ success: false, message: error.message }),
+      {
+        status: 500,
+      },
+    );
   }
-  return new Response(JSON.stringify({ message: 'ok' }));
 };
