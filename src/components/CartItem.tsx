@@ -28,8 +28,10 @@ const CartItem: React.FC<CartItemProps> = ({ item, className }) => {
   };
 
   return (
-    <div className={'flex gap-4 py-4 border-b border-aeternum-accent/10'}>
-      <div className="h-20 w-20 rounded overflow-hidden bg-aeternum-light flex-shrink-0">
+    <div
+      className={'flex gap-4 py-4 border-b border-aeternum-accent/10 text-md'}
+    >
+      <div className="h-24 w-24 rounded overflow-hidden bg-aeternum-light flex-shrink-0">
         <img
           src={item.url}
           alt={item.name}
@@ -38,10 +40,10 @@ const CartItem: React.FC<CartItemProps> = ({ item, className }) => {
       </div>
 
       <div className="flex flex-col flex-grow">
-        <h3 className="text-sm font-medium text-aeternum-highlight mb-1 line-clamp-1">
+        <h3 className="font-medium text-aeternum-highlight mb-1 line-clamp-1">
           {item.name}
         </h3>
-        <p className="text-xs text-aeternum-accent/70 mb-2 line-clamp-1">
+        <p className=" text-aeternum-accent/70 mb-2 line-clamp-1">
           {item.price}
         </p>
 
@@ -55,7 +57,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, className }) => {
               <Minus size={14} />
             </button>
 
-            <span className="text-sm text-aeternum-highlight w-6 text-center">
+            <span className=" text-aeternum-highlight w-6 text-center">
               {item.quantity}
             </span>
 

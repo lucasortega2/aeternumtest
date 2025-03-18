@@ -4,6 +4,7 @@ import { useCartStore } from '@/stores/cartStore';
 import { z } from 'astro/zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import AeternumLoadingButton from './AeternumLoadingButton';
 
 // Esquema de validación con zod
 export const checkoutFormSchema = z.object({
@@ -23,14 +24,13 @@ export type CheckoutFormValues = z.infer<typeof checkoutFormSchema>;
 const CheckoutPage = () => {
   const [preferenceId, setPreferenceId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-
-  const { items, totalItems, totalPrice, clearCart } = useCartStore();
+  const [error, setError] = useState({ error: false, message: '' });
+  const { items, totalItems, totalPrice } = useCartStore();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutFormSchema),
     defaultValues: {
@@ -52,6 +52,10 @@ const CheckoutPage = () => {
 
   const createPreference = async (data: CheckoutFormValues) => {
     setLoading(true);
+    if (items.length === 0) {
+      setError({ error: true, message: 'No hay productos en el carrito' });
+      return;
+    }
 
     try {
       const response = await fetch('/api/createPreference', {
@@ -78,9 +82,21 @@ const CheckoutPage = () => {
       });
 
       const result = await response.json();
+
+      if (result.success == false) {
+        setError({
+          error: true,
+          message: 'Ocurrió un error al procesar el pago',
+        });
+        return;
+      }
+      setError({ error: false, message: '' });
       setPreferenceId(result.id);
     } catch (error) {
-      console.error('Error creando preferencia:', error);
+      setError({
+        error: true,
+        message: 'Error de conexión con el servidor',
+      });
     } finally {
       setLoading(false);
     }
@@ -96,7 +112,11 @@ const CheckoutPage = () => {
         <h1 className="text-4xl font-bold mb-12 mt-4 text-center text-aeternum-accent">
           Finalizar Compra
         </h1>
-
+        {error.error && (
+          <p className="text-red-500 text-center text-lg mb-8">
+            {error.message}
+          </p>
+        )}
         {/* Información de Envío */}
         <form
           onSubmit={handleSubmit(createPreference)}
@@ -276,24 +296,22 @@ const CheckoutPage = () => {
                 ${formatPrice(totalPrice)}
               </p>
             </div>
-
-            {preferenceId ? (
+            {!preferenceId ? (
+              <AeternumLoadingButton isLoading={loading} disabled={loading}>
+                Generar Pago
+              </AeternumLoadingButton>
+            ) : (
               <div className="mt-8">
                 <Wallet
                   initialization={{ preferenceId }}
-                  customization={{ texts: { valueProp: 'smart_option' } }}
+                  customization={{
+                    texts: { valueProp: 'smart_option' },
+                    visual: {
+                      buttonBackground: 'black',
+                    },
+                  }}
                 />
               </div>
-            ) : (
-              <button
-                type="submit"
-                disabled={loading}
-                className={`w-full py-3 px-6 rounded-lg bg-blue-500 hover:bg-opacity-80 transition cursor-pointer ${
-                  loading ? 'opacity-50 cursor-not-allowed:' : ''
-                }`}
-              >
-                {loading ? 'Procesando...' : 'Generar Pago'}
-              </button>
             )}
           </div>
         </form>

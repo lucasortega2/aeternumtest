@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({ request }) => {
     const { items } = await request.json();
 
     const client = new MercadoPagoConfig({
-      accessToken: import.meta.env.PUBLIC_MP_ACCESS_TOKEN,
+      accessToken: import.meta.env.ACCESS_TOKEN_MP,
     });
 
     const body = {
@@ -24,12 +24,11 @@ export const POST: APIRoute = async ({ request }) => {
     const preference = new Preference(client);
 
     const result = await preference.create({ body });
+
     return new Response(JSON.stringify({ id: result.id }), {
       status: 200,
     });
   } catch (error) {
-    console.log(error);
-
     return new Response(
       JSON.stringify({ success: false, message: error.message }),
       {

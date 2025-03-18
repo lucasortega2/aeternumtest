@@ -26,18 +26,40 @@ export default function CartDrawer(): JSX.Element {
 
   // Close cart when pressing Escape key
   useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
+    const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setIsOpen(false);
       }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEsc);
+      window.addEventListener('keydown', handleEscKey);
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEsc);
+      window.removeEventListener('keydown', handleEscKey);
+    };
+  }, [isOpen]);
+
+  // Control scroll when cart is open
+  // Prevent scroll events but keep scrollbar visible
+  const preventDefault = (e) => e.preventDefault();
+
+  useEffect(() => {
+    if (isOpen) {
+      // Prevent wheel and touchmove events
+      window.addEventListener('wheel', preventDefault, { passive: false });
+      window.addEventListener('touchmove', preventDefault, { passive: false });
+    } else {
+      // Remove listeners
+      window.removeEventListener('wheel', preventDefault);
+      window.removeEventListener('touchmove', preventDefault);
+    }
+
+    return () => {
+      // Cleanup
+      window.removeEventListener('wheel', preventDefault);
+      window.removeEventListener('touchmove', preventDefault);
     };
   }, [isOpen]);
 
@@ -72,7 +94,7 @@ export default function CartDrawer(): JSX.Element {
 
       {/* Cart overlay */}
       <div
-        className={`fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] transition-opacity duration-300 ${
+        className={`fixed inset-0 h-dvh w-full bg-black/70 backdrop-blur-sm z-[100] transition-opacity duration-300 ${
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
       />
@@ -140,7 +162,7 @@ export default function CartDrawer(): JSX.Element {
 
             <div className="space-y-3">
               <a
-                href="/checkout"
+                href="/checkout/checkout"
                 className="block w-full py-3 px-4 bg-white text-black hover:bg-gray-200 transition-colors rounded-md text-center font-medium"
               >
                 Checkout
