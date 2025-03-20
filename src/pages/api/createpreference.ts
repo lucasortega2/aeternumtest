@@ -15,9 +15,9 @@ export const POST: APIRoute = async ({ request }) => {
     const body = {
       items,
       back_urls: {
-        success: 'https://aeternum-tau.vercel.app/checkout/success',
-        failure: 'https://aeternum-tau.vercel.app/checkout/failure',
-        pending: 'https://aeternum-tau.vercel.app/checkout/pending',
+        success: 'http://localhost:4321/checkout/status',
+        failure: 'http://localhost:4321/checkout/status',
+        pending: 'http://localhost:4321/checkout/status',
       },
       auto_return: 'approved',
     };

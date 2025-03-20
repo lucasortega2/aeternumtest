@@ -310,6 +310,7 @@ const CheckoutPage = () => {
                       buttonBackground: 'black',
                     },
                   }}
+                  onReady={() => console.log('success')}
                 />
               </div>
             )}

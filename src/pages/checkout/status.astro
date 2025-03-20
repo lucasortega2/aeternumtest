@@ -1,0 +1,13 @@
+---
+export const prerender = false;
+import Layout from '@/layouts/Layout.astro';
+import ChecoutSuccessComponent from '@/components/CheckoutSuccessComponent';
+const url = Astro.url;
+const paymentId = url.searchParams.get('payment_id');
+---
+
+<Layout>
+  <div class="flex h-96 items-center justify-center">
+    {paymentId && <ChecoutSuccessComponent client:load paymentId={paymentId} />}
+  </div>
+</Layout>
