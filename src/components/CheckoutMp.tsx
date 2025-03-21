@@ -64,7 +64,7 @@ const CheckoutPage = () => {
     }
 
     try {
-      const response = await fetch('/api/createPreference', {
+      const response = await fetch('/api/mercadopago', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

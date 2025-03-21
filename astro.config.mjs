@@ -20,7 +20,7 @@ export default defineConfig({
 
   integrations: [react(), icon()],
   adapter: vercel({
-    analytics: true,
+    webAnalytics: true,
   }),
   output: 'server',
   env: {
