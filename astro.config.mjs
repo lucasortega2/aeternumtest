@@ -29,7 +29,7 @@ export default defineConfig({
         access: 'secret',
       }),
       ACCES_TOKEN_MP: envField.string({ context: 'server', access: 'secret' }),
-      KEY_MP: envField.string({ context: 'server', access: 'secret' }),
+      PUBLIC_KEY_MP: envField.string({ context: 'server', access: 'secret' }),
     },
   },
 });

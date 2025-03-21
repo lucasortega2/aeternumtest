@@ -51,7 +51,7 @@ const CheckoutPage = () => {
   });
 
   useEffect(() => {
-    initMercadoPago(import.meta.env.KEY_MP, {
+    initMercadoPago(import.meta.env.PUBLIC_KEY_MP, {
       locale: 'es-AR',
     });
   }, []);
