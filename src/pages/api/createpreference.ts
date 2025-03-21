@@ -22,6 +22,10 @@ export const POST: APIRoute = async ({ request }) => {
         first_name: payer.firstName,
         last_name: payer.lastName,
         email: payer.email,
+        identification: {
+          type: 'DNI',
+          number: payer.dni,
+        },
       },
       auto_return: 'approved',
       notification_url: 'https://aeternum-tau.vercel.app/api/webhooks',

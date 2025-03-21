@@ -79,12 +79,11 @@ const CheckoutPage = () => {
             firstName: data.firstName,
             lastName: data.lastName,
             email: data.email,
-            phone: data.phone,
-            dni: data.dni,
-            address: data.address,
-            city: data.city,
-            postal_code: data.postalCode,
-            province: data.province,
+
+            identification: {
+              type: 'DNI',
+              number: data.dni,
+            },
           },
         }),
       });
