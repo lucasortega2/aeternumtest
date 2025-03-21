@@ -20,7 +20,7 @@ export default defineConfig({
 
   integrations: [react(), icon()],
   adapter: vercel(),
-  output: 'static',
+  output: 'server',
   env: {
     schema: {
       SUPABASE_URL: envField.string({ context: 'server', access: 'secret' }),
