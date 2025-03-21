@@ -14,9 +14,9 @@ export const POST: APIRoute = async ({ request }) => {
     const body = {
       items,
       back_urls: {
-        success: 'https://aeternum-tau.vercel.app/checkout/status',
-        failure: 'https://aeternum-tau.vercel.app/checkout/status',
-        pending: 'https://aeternum-tau.vercel.app/checkout/status',
+        success: 'https://aeternumtest.vercel.app/checkout/status',
+        failure: 'https://aeternumtest.vercel.app/checkout/status',
+        pending: 'https://aeternumtest.vercel.app/checkout/status',
       },
       payer: {
         first_name: payer.firstName,
@@ -28,7 +28,7 @@ export const POST: APIRoute = async ({ request }) => {
         },
       },
       auto_return: 'approved',
-      notification_url: 'https://aeternum-tau.vercel.app/api/webhooks',
+      notification_url: 'https://aeternumtest.vercel.app//api/webhooks',
     };
     const preference = new Preference(client);
 
