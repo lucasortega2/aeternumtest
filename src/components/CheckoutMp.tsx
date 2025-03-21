@@ -8,11 +8,15 @@ import AeternumLoadingButton from './AeternumLoadingButton';
 
 // Esquema de validación con zod
 export const checkoutFormSchema = z.object({
-  name: z.string().min(3, {
+  firstName: z.string().min(3, {
     message: 'El nombre es requerido y debe tener al menos 3 caracteres',
+  }),
+  lastName: z.string().min(3, {
+    message: 'El apellido es requerido y debe tener al menos 3 caracteres',
   }),
   email: z.string().email({ message: 'Email inválido' }),
   phone: z.string().min(6, { message: 'El teléfono es requerido' }),
+  dni: z.string().min(8, { message: 'El DNI es requerido' }),
   address: z.string().min(5, { message: 'La dirección es requerida' }),
   province: z.string().min(2, { message: 'La provincia es requerida' }),
   city: z.string().min(2, { message: 'La ciudad es requerida' }),
@@ -34,9 +38,11 @@ const CheckoutPage = () => {
   } = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutFormSchema),
     defaultValues: {
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
       phone: '',
+      dni: '',
       address: '',
       province: '',
       city: '',
@@ -45,7 +51,7 @@ const CheckoutPage = () => {
   });
 
   useEffect(() => {
-    initMercadoPago(import.meta.env.PUBLIC_KEY_MP, {
+    initMercadoPago(import.meta.env.KEY_MP, {
       locale: 'es-AR',
     });
   }, []);
@@ -70,9 +76,11 @@ const CheckoutPage = () => {
             currency_id: 'ARS',
           })),
           payer: {
-            name: data.name,
+            firstName: data.firstName,
+            lastName: data.lastName,
             email: data.email,
             phone: data.phone,
+            dni: data.dni,
             address: data.address,
             city: data.city,
             postal_code: data.postalCode,
@@ -128,24 +136,92 @@ const CheckoutPage = () => {
             </h2>
 
             {/* Nombre completo */}
-            <div>
-              <label htmlFor="name" className="block mb-2 text-aeternum-silver">
-                Nombre completo
-              </label>
-              <input
-                type="text"
-                id="name"
-                {...register('name')}
-                className="w-full bg-aeternum-light border border-aeternum-dark rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-aeternum-accent"
-              />
-              {errors.name && (
-                <p className="text-red-500 text-sm mt-2">
-                  {errors.name.message}
-                </p>
-              )}
+            <div className="flex gap-x-16">
+              <div className="flex-grow">
+                <label
+                  htmlFor="firstName"
+                  className="block mb-2 text-aeternum-silver"
+                >
+                  Nombre
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  {...register('firstName')}
+                  className="w-full bg-aeternum-light border border-aeternum-dark rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-aeternum-accent"
+                />
+                {errors.firstName && (
+                  <p className="text-red-500 text-sm mt-2">
+                    {errors.firstName.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex-grow">
+                <label
+                  htmlFor="lastName"
+                  className="block mb-2 text-aeternum-silver"
+                >
+                  Apellido
+                </label>
+                <input
+                  type="lastName"
+                  id="lastName"
+                  {...register('lastName')}
+                  className="w-full bg-aeternum-light border border-aeternum-dark rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-aeternum-accent"
+                />
+                {errors.lastName && (
+                  <p className="text-red-500 text-sm mt-2">
+                    {errors.lastName.message}
+                  </p>
+                )}
+              </div>
             </div>
 
             {/* Email */}
+
+            <div className="flex gap-x-16 ">
+              {/* Teléfono */}
+              <div className="flex-grow">
+                <label
+                  htmlFor="phone"
+                  className="block mb-2 text-aeternum-silver"
+                >
+                  Teléfono
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  {...register('phone')}
+                  className="w-full bg-aeternum-light border border-aeternum-dark rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-aeternum-accent"
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-sm mt-2">
+                    {errors.phone.message}
+                  </p>
+                )}
+              </div>
+              {/* DNI */}
+              <div className="flex-grow">
+                <label
+                  htmlFor="dni"
+                  className="block mb-2 text-aeternum-silver"
+                >
+                  DNI
+                </label>
+                <input
+                  type="text"
+                  id="dni"
+                  {...register('dni')}
+                  className="w-full bg-aeternum-light border border-aeternum-dark rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-aeternum-accent"
+                />
+                {errors.dni && (
+                  <p className="text-red-500 text-sm mt-2">
+                    {errors.dni.message}
+                  </p>
+                )}
+              </div>
+            </div>
             <div>
               <label
                 htmlFor="email"
@@ -165,28 +241,6 @@ const CheckoutPage = () => {
                 </p>
               )}
             </div>
-
-            {/* Teléfono */}
-            <div>
-              <label
-                htmlFor="phone"
-                className="block mb-2 text-aeternum-silver"
-              >
-                Teléfono
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                {...register('phone')}
-                className="w-full bg-aeternum-light border border-aeternum-dark rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-aeternum-accent"
-              />
-              {errors.phone && (
-                <p className="text-red-500 text-sm mt-2">
-                  {errors.phone.message}
-                </p>
-              )}
-            </div>
-
             {/* Dirección */}
             <div>
               <label
@@ -310,7 +364,6 @@ const CheckoutPage = () => {
                       buttonBackground: 'black',
                     },
                   }}
-                  onReady={() => console.log('success')}
                 />
               </div>
             )}

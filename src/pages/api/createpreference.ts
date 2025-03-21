@@ -6,7 +6,7 @@ export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const { items } = await request.json();
+    const { items, payer } = await request.json();
 
     const client = new MercadoPagoConfig({
       accessToken: import.meta.env.ACCESS_TOKEN_MP,
@@ -15,11 +15,18 @@ export const POST: APIRoute = async ({ request }) => {
     const body = {
       items,
       back_urls: {
-        success: 'http://localhost:4321/checkout/status',
-        failure: 'http://localhost:4321/checkout/status',
-        pending: 'http://localhost:4321/checkout/status',
+        success: 'https://5cb4-181-97-210-204.ngrok-free.app/checkout/status',
+        failure: 'https://5cb4-181-97-210-204.ngrok-free.app/checkout/status',
+        pending: 'https://5cb4-181-97-210-204.ngrok-free.app/checkout/status',
+      },
+      payer: {
+        first_name: payer.firstName,
+        last_name: payer.lastName,
+        email: payer.email,
       },
       auto_return: 'approved',
+      notification_url:
+        'https://5cb4-181-97-210-204.ngrok-free.app/api/webhooks',
     };
     const preference = new Preference(client);
 

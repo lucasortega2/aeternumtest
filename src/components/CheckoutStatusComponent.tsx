@@ -28,7 +28,9 @@ const CheckoutSuccessComponent: React.FC<CheckoutSuccessComponentProps> = ({
       }
 
       try {
-        const response = await fetch(`/api/webhook?payment_id=${paymentId}`);
+        const response = await fetch(
+          `/api/checkStatusPayment?payment_id=${paymentId}`,
+        );
 
         if (!response.ok) {
           throw new Error('Error al verificar el pago');

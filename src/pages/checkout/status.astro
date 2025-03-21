@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 import Layout from '@/layouts/Layout.astro';
-import ChecoutSuccessComponent from '@/components/CheckoutSuccessComponent';
+import ChecoutSuccessComponent from '@/components/CheckoutStatusComponent';
 const url = Astro.url;
 const paymentId = url.searchParams.get('payment_id');
 ---
