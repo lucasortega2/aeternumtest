@@ -101,6 +101,7 @@ const CheckoutPage = () => {
       setError({ error: false, message: '' });
       setPreferenceId(result.id);
     } catch (error) {
+      console.error(error);
       setError({
         error: true,
         message: 'Error de conexión con el servidor',
