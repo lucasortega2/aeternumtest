@@ -3,14 +3,7 @@ import { MercadoPagoConfig, Preference } from 'mercadopago';
 
 export const prerender = false;
 
-export const GET: APIRoute = async () => {
-  return new Response(JSON.stringify({ success: true }), { status: 200 });
-};
-
 export const POST: APIRoute = async ({ request }) => {
-  console.log(import.meta.env.ACCESS_TOKEN_MP);
-  console.log(import.meta.env.SECRET_KEY_MP);
-
   try {
     const { items, payer } = await request.json();
 

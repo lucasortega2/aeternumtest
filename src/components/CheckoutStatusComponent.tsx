@@ -29,7 +29,7 @@ const CheckoutSuccessComponent: React.FC<CheckoutSuccessComponentProps> = ({
 
       try {
         const response = await fetch(
-          `/api/checkStatusPayment?payment_id=${paymentId}`,
+          `/api/checkstatuspayment?payment_id=${paymentId}`,
         );
 
         if (!response.ok) {
