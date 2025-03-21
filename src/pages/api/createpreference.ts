@@ -18,17 +18,17 @@ export const POST: APIRoute = async ({ request }) => {
         failure: 'https://aeternumtest.vercel.app/checkout/status',
         pending: 'https://aeternumtest.vercel.app/checkout/status',
       },
-      payer: {
-        first_name: payer.firstName,
-        last_name: payer.lastName,
-        email: payer.email,
-        identification: {
-          type: 'DNI',
-          number: payer.dni,
-        },
-      },
+      // payer: {
+      //   first_name: payer.firstName,
+      //   last_name: payer.lastName,
+      //   email: payer.email,
+      //   identification: {
+      //     type: 'DNI',
+      //     number: payer.dni,
+      //   },
+      // },
       auto_return: 'approved',
-      notification_url: 'https://aeternumtest.vercel.app//api/webhooks',
+      notification_url: 'https://aeternumtest.vercel.app/api/webhooks',
     };
     const preference = new Preference(client);
 

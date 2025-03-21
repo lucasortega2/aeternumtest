@@ -356,15 +356,7 @@ const CheckoutPage = () => {
               </AeternumLoadingButton>
             ) : (
               <div className="mt-8">
-                <Wallet
-                  initialization={{ preferenceId }}
-                  customization={{
-                    texts: { valueProp: 'smart_option' },
-                    visual: {
-                      buttonBackground: 'black',
-                    },
-                  }}
-                />
+                <Wallet initialization={{ preferenceId: preferenceId }} />
               </div>
             )}
           </div>
