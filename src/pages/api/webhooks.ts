@@ -8,16 +8,10 @@ export const POST: APIRoute = async ({ request, url }) => {
   const dataIDs = body.data?.id;
   const xSignature = request.headers.get('x-signature');
   const xRequestId = request.headers.get('x-request-id');
-  console.log(url.searchParams);
 
   // Asegurarse de obtener el ID y convertirlo a minúsculas si es alfanumérico
-  const dataID = url.searchParams.get('data.id');
-  const dataId2 = url.searchParams.get('id');
-  const dataIDLower = dataIDs ? dataIDs.toLowerCase() : dataID?.toLowerCase();
 
-  console.log(`idfromdata.id : ${dataID}`);
-  console.log(`idfromid : ${dataId2}`);
-  console.log(`idfrombody : ${dataIDs}`);
+  const dataIDLower = url.searchParams.get('id')?.toLowerCase();
 
   const parts = xSignature?.split(',');
   let ts: string | undefined;
