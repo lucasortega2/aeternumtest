@@ -36,6 +36,7 @@ const CheckoutSuccessComponent: React.FC<CheckoutSuccessComponentProps> = ({
 
         const data = await response.json();
         setPaymentInfo(data);
+        console.log(data);
 
         // Aquí puedes realizar acciones adicionales basadas en el estado del pago
         if (data.status === 'approved') {
