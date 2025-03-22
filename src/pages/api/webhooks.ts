@@ -12,6 +12,7 @@ export const POST: APIRoute = async ({ request, url }) => {
   // Asegurarse de obtener el ID y convertirlo a minúsculas si es alfanumérico
 
   const dataIDLower = url.searchParams.get('id')?.toLowerCase();
+  console.log(url.searchParams);
 
   const parts = xSignature?.split(',');
   let ts: string | undefined;
