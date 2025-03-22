@@ -1,3 +1,6 @@
+import type { APIRoute } from 'astro';
+import crypto from 'node:crypto';
+
 export const POST: APIRoute = async ({ request, url }) => {
   // Devolvemos 200 rápido
   const response = new Response('OK', { status: 200 });
