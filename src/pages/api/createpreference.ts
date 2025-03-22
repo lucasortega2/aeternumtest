@@ -28,7 +28,7 @@ export const POST: APIRoute = async ({ request }) => {
       //   },
       // },
       auto_return: 'approved',
-      notification_url: 'https://aeternumtest.vercel.app/api/webhooks',
+      // notification_url: 'https://aeternumtest.vercel.app/api/webhooks',
     };
     const preference = new Preference(client);
 
