@@ -5,13 +5,15 @@ export const prerender = false;
 
 export const POST: APIRoute = async ({ request, url }) => {
   const body = await request.json();
-  const dataIDs = body.data?.id;
+
   const xSignature = request.headers.get('x-signature');
   const xRequestId = request.headers.get('x-request-id');
 
   // Asegurarse de obtener el ID y convertirlo a minúsculas si es alfanumérico
+  const dataID1 = url.searchParams.get('id')?.toLowerCase();
+  const dataID2 = url.searchParams.get('data.id')?.toLowerCase();
+  const dataIDLower = dataID1 || dataID2;
 
-  const dataIDLower = url.searchParams.get('id')?.toLowerCase();
   console.log(url.searchParams);
 
   const parts = xSignature?.split(',');
